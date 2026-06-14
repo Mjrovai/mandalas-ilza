@@ -1,0 +1,6 @@
+.DS_Store
+*.ai
+*.heic
+Thumbs.db
+open.sh
+js/main.js
