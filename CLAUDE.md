@@ -19,36 +19,69 @@ site/
 └── .nojekyll           # Impede Jekyll no GitHub Pages
 ```
 
-## Convenção de imagens (obrigatória)
+---
 
-Cada pasta de mandala contém **exatamente até 3 arquivos**, com nomes fixos:
+## ⚠️ PRÓXIMA SESSÃO — Migração pendente
+
+A convenção de nomes está sendo reformulada. **Não adicionar novas mandalas antes de concluir esta migração.**
+
+### Nova convenção (em preparação)
+
+Cada pasta de mandala terá até **4 arquivos**, todos com o nome da pasta como prefixo:
+
+| Arquivo | Significado | Tamanho alvo |
+|---|---|---|
+| `{Pasta}_mao.jpg` | Foto colorida à mão | 1200×1200 px JPG |
+| `{Pasta}_vetor.png` | Versão digital (Illustrator) | 1200×1200 px PNG |
+| `{Pasta}_pb.png` | P&B para exibição no site | 1200×1200 px PNG |
+| `{Pasta}_pb_print.pdf` | P&B vetorial para impressão A4 | PDF A4 do Illustrator |
+
+**Exemplo** — pasta `MandalaDEZ_04_11`:
+```
+MandalaDEZ_04_11_mao.jpg
+MandalaDEZ_04_11_vetor.png
+MandalaDEZ_04_11_pb.png
+MandalaDEZ_04_11_pb_print.pdf
+```
+
+### O que fazer na próxima sessão
+
+1. Confirmar que todas as pastas já foram renomeadas pela Ilza
+2. Atualizar `js/data.js`: trocar campos `illustrator` → `vetor`, adicionar `pb_print`
+3. Atualizar `js/app.js`: suporte ao `pb_print` (botão de download aponta para o PDF)
+4. Atualizar `css/style.css` se necessário
+5. Git commit + push
+
+---
+
+## Convenção atual (em vigor até a migração)
+
+Cada pasta contém até 3 arquivos com nomes fixos:
 
 | Arquivo | Significado |
 |---|---|
 | `mao.jpg` / `mao.png` | Foto da mandala colorida à mão |
 | `illustrator.jpg` / `illustrator.png` | Versão digital (Adobe Illustrator) |
-| `pb.jpg` / `pb.png` | Preto e branco — disponível para download/impressão |
+| `pb.png` | Preto e branco para download/impressão |
 
-- A extensão (jpg ou png) vem do arquivo original.
-- Se uma versão não existe, o campo correspondente em `data.js` é `null`.
-- **Nunca** deixar outros arquivos de imagem nessas pastas.
+## Como adicionar uma nova mandala (convenção atual)
 
-## Como adicionar uma nova mandala
-
-1. Criar pasta: `site/GRUPO/NomeDaPasta/` (ex: `SEIS/MandalaSEIS_06_20/`)
+1. Criar pasta: `site/GRUPO/NomeDaPasta/`
 2. Colocar as imagens renomeadas: `mao.ext`, `illustrator.ext`, `pb.ext`
 3. Adicionar bloco em `js/data.js`:
 
 ```js
 {
   id: 'SEIS-06-20', divisoes: 6, data: '20/06',
-  mao:         'SEIS/MandalaSEIS_06_20/mao.jpg',   // ou null
+  mao:         'SEIS/MandalaSEIS_06_20/mao.jpg',
   illustrator: 'SEIS/MandalaSEIS_06_20/illustrator.png',
   pb:          'SEIS/MandalaSEIS_06_20/pb.png'
 }
 ```
 
 4. `git add` + `git commit` + `git push`
+
+---
 
 ## Grupos de divisões
 
@@ -89,6 +122,6 @@ Fontes: **Playfair Display** (títulos), **Inter** (corpo), **IBM Plex Mono** (d
 Ao receber novas imagens sem classificação, o critério é:
 - **pb**: saturação HSV média < 8 → preto e branco
 - **mao**: arquivo `IMG_*.jpg` (foto de câmera) ou saturação alta com alta variância (σ > 62)
-- **illustrator**: imagem colorida com cores planas e baixa variância (σ ≤ 62)
+- **vetor/illustrator**: imagem colorida com cores planas e baixa variância (σ ≤ 62)
 
 Casos ambíguos devem ser confirmados visualmente pelo usuário.
